@@ -1,8 +1,16 @@
+export interface Medicine {
+  id: string;
+  name: string;
+  category: 'OTC' | 'Prescription' | 'Supplement';
+  isCommon: boolean;
+  defaultPrice: number;
+}
+
 export interface Pharmacy {
   id: string;
   name: string;
   address: string;
-  district: string;
+  state: string;
   latitude: number;
   longitude: number;
   phone: string;
@@ -10,62 +18,42 @@ export interface Pharmacy {
   is24Hours: boolean;
 }
 
-export interface Medicine {
-  id: string;
-  name: string;
-  category: 'OTC' | 'Prescription' | 'Supplement';
-  isCommon: boolean;
-  genericName?: string;
-  defaultPrice: number;
-}
-
 export interface InventoryItem {
   pharmacyId: string;
   medicineId: string;
   price: number;
   stockQuantity: number;
-  availabilityStatus: 'In Stock' | 'Limited Stock' | 'Out of Stock';
+  availabilityStatus: 'In Stock' | 'Limited Stock';
 }
 
 export interface SearchResult {
   pharmacy: Pharmacy;
-  medicine: Medicine;
+  medicineName: string;
   price: number;
   stockQuantity: number;
-  availabilityStatus: 'In Stock' | 'Limited Stock' | 'Out of Stock';
+  availabilityStatus: 'In Stock' | 'Limited Stock';
   distanceKm: number;
   travelTimeMinutes: number;
   isBestMatch?: boolean;
 }
 
-export interface KeralaLocation {
-  id: string;
+export interface UserLocation {
   name: string;
-  district: string;
+  state: string;
   latitude: number;
   longitude: number;
-}
-
-export interface ExtractedMedicineChip {
-  id: string;
-  name: string;
-  dosage?: string;
-  isConfirmed: boolean;
+  isGPS: boolean;
+  accuracyMeters?: number;
 }
 
 export interface Reservation {
-  id: string;
-  reservationCode: string;
-  pharmacyId: string;
+  code: string;
   pharmacyName: string;
   pharmacyAddress: string;
   pharmacyPhone: string;
   medicineName: string;
-  quantity: number;
-  pricePerUnit: number;
-  totalPrice: number;
+  price: number;
   customerName: string;
   customerPhone: string;
-  createdAt: string;
   expiresAt: string;
 }

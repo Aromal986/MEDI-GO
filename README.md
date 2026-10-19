@@ -1,50 +1,43 @@
-# 💊 MEDIGO - Kerala Pharmacy Medicine Availability Finder
+# 💊 MediGo - Pharmacy Medicine Availability Finder
 
-MEDIGO is a production-ready web application built to help users in Kerala instantly find nearest pharmacies where their required medicine is available in stock.
-
-![MEDIGO Banner](https://img.shields.io/badge/MEDIGO-Production--Ready-0284c7?style=for-the-badge&logo=react)
-![Tech Stack](https://img.shields.io/badge/Stack-React_|_TypeScript_|_Vite_|_Tailwind_|_Leaflet-059669?style=for-the-badge)
+**MediGo** is a modern, lightweight, production-ready web application that helps users instantly find the nearest pharmacies where their required medicine is available in stock across India.
 
 ---
 
-## 🎯 Purpose
+## 🎯 Objective
 
-MEDIGO is **not** an online pharmacy or medicine delivery app. Its sole objective is:
-**Help users instantly locate nearby pharmacies in Kerala where their required medicine is in stock.**
+MediGo is **not** an online pharmacy or medicine delivery app. Its core objective is:
+> **Help users instantly find the nearest pharmacies where their required medicine is in stock, with transparent pricing and direct Google Maps directions.**
 
 ---
 
 ## ✨ Features
 
-- **📍 Dual Location Engine**:
-  - *GPS Location*: Browser Geolocation API with reverse geocoding to nearest Kerala locality & accuracy estimation.
-  - *Manual Location*: Autocomplete selection for major Kerala towns across all 14 districts (*Kochi, Kayamkulam, Chengannur, Alappuzha, Thrissur, Trivandrum, Kozhikode, Kollam, Kottayam, Kannur, etc.*). Manual location overrides GPS cleanly.
+- **📍 Dual Location System**:
+  - **GPS Detection**: Uses Browser Geolocation API to detect coordinates, locate the nearest city, and estimate accuracy.
+  - **Manual Search**: Instant autocomplete search for 300+ cities and towns across all 28 Indian States and 8 Union Territories.
 
-- **💊 Medicine Search & AI OCR**:
-  - Search bar with live autocomplete suggestions for **1,000+ medicines**.
-  - **Prescription Upload (PNG, JPG, PDF)** with simulated AI OCR scanning that extracts medicine names into editable, deletable, and searchable chips.
+- **💊 Intelligent Medicine Search**:
+  - Live autocomplete suggestions for **1,000+ medicines** (OTC, prescription, common, and rare).
+  - **Dynamic custom medicine synthesis**: Any custom typed medicine name appears immediately in search and matches nearby pharmacy inventory.
 
-- **🎯 Haversine Distance & Silent Search Expansion**:
-  - Exact great-circle distance calculation using lat/lng coordinates and the Haversine formula.
-  - Silent search radius expansion (1 km → 50 km) returning **5 to 10 pharmacy results** every time.
-  - **Common Medicines** (*Paracetamol, Dolo 650, Crocin, Cetirizine, Pantoprazole, ORS*) appear within 1–5 km.
-  - **Rare Medicines** (*Tocilizumab, Pirfenidone, Amphotericin B, Remdesivir*) expand to farther distances while maintaining multiple store options.
+- **📄 AI OCR Prescription Scanner**:
+  - Upload prescriptions in **PNG, JPEG, JPG, or PDF** format.
+  - Automatically simulates OCR scanning and extracts medicines into editable, deletable, and searchable interactive chips.
 
-- **🏷️ Price Comparison & Store Cards**:
-  - `BEST MATCH` badge awarded to the nearest/best store result.
-  - Store Name, Address, Phone Number (clickable `tel:` link), Operating Hours (`24 Hours Open` or `8 AM - 10 PM`).
-  - Medicine Price in Indian Rupees (**₹**) and Stock Status (`In Stock` / `Limited Stock`).
-  - Price comparison callout highlighting price variations across stores and potential savings.
+- **🧭 Distance & Navigation**:
+  - Distance calculated via the mathematical **Haversine Formula** using exact coordinates (never random distances).
+  - Silent radius expansion (1 km → 50 km) ensuring 5–10 nearest pharmacy results.
+  - **Get Directions**: One-click direct turn-by-turn navigation in Google Maps with exact pharmacy coordinates.
 
-- **🗺️ Interactive Pharmacy Map**:
-  - Leaflet map displaying user position and store markers styled with live prices.
-  - Direct `Get Directions` button linking to Google Maps navigation.
+- **🏷️ Price Comparison & Best Match**:
+  - Nearest store highlighted with a **BEST MATCH** badge.
+  - Price comparison callout indicating lowest to highest store price and potential savings.
+  - Stock indicators (**In Stock** / **Limited Stock** with exact units).
 
-- **📝 Stock Reservation**:
-  - Customer reservation form issuing a unique **Reservation ID** (e.g. `RES-MED-84920`) with 4-hour stock hold instructions.
-
-- **🔌 Future-API Ready**:
-  - Modular structure (`types/`, `data/`, `services/`, `components/`) ready for live inventory API integration (*MediCare*, *MediSoft*).
+- **📝 Instant Stock Reservation**:
+  - Users can reserve medicine for counter pickup without paying online.
+  - Generates a unique **Reservation ID** (e.g. `RES-ABC-12345`) with hold instructions.
 
 ---
 
@@ -53,21 +46,18 @@ MEDIGO is **not** an online pharmacy or medicine delivery app. Its sole objectiv
 - **Frontend**: React 18, TypeScript, Vite
 - **Styling**: Tailwind CSS
 - **Icons**: Lucide React
-- **Maps**: Leaflet / OpenStreetMap
-- **Distance Math**: Haversine Formula (Spherical Trigonometry)
+- **Distance Calculation**: Haversine Formula (Spherical Trigonometry)
 
 ---
 
 ## 🚀 Getting Started
 
-### 1. Clone & Install
+### 1. Install Dependencies
 ```bash
-git clone <your-repo-url>
-cd MEDI-GO
 npm install
 ```
 
-### 2. Run Locally
+### 2. Run Development Server
 ```bash
 npm run dev
 ```
@@ -83,19 +73,24 @@ npm run build
 ## 📂 Project Structure
 
 ```
-MEDI-GO/
+├── public/
+│   └── logo.png              # MediGo official logo
 ├── src/
-│   ├── components/       # Header, SearchCard, PharmacyCard, PharmacyList, MapView, etc.
-│   ├── data/             # Mock DB (500+ Pharmacies, 1000+ Medicines, Kerala towns)
-│   ├── services/         # Location service, Search engine, AI OCR simulation
-│   ├── utils/            # Haversine math & travel time calculations
-│   ├── types/            # TypeScript interfaces
-│   ├── App.tsx           # Main application view
-│   ├── main.tsx          # React mount entry
-│   └── index.css         # Tailwind & custom CSS
-├── index.html
+│   ├── assets/               # Brand assets
+│   ├── data/
+│   │   ├── indiaLocations.ts # 300+ Indian cities and states
+│   │   └── mockData.ts       # 1000+ medicines, 500+ pharmacies & dynamic synthesis
+│   ├── services/
+│   │   └── searchService.ts  # Haversine radius search, sorting & filtering
+│   ├── utils/
+│   │   └── haversine.ts      # Distance and travel time calculations
+│   ├── types/
+│   │   └── index.ts          # TypeScript interfaces
+│   ├── App.tsx               # Main application component
+│   ├── main.tsx              # React DOM entry
+│   └── index.css             # Tailwind & custom styling
+├── index.html                # HTML entry & favicon
 ├── package.json
 ├── tailwind.config.js
-├── vite.config.ts
-└── tsconfig.json
+└── vite.config.ts
 ```
